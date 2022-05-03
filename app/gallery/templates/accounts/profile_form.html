@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="mb-3">
+    <label for="image" class="form-label {% if form.image.errors %}is-invalid{% endif %}">
+        Аватар
+    </label>
+    {% if profile_form.image.value %}
+        <p>На данный момент: <a href="{{ profile_form.image.value.url }}">{{ profile_form.image.value.url}}</a></p>
+    {% endif %}
+    <input type="file" id="image" name="image" value="{{ profile_form.image.value|default:'' }}" class="form-control">
+</div>
+<div class="mb-3">
+    <label for="about" class="form-label {% if form.about.errors %}is-invalid{% endif %}">
+        Описание
+    </label>
+    <input type="text" id="about" name="about" value="{{ profile_form.about.value|default:'' }}" class="form-control">
+</div>
+</div>

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container" style="width: 50%">
+        <h1>Регистрация</h1>
+        <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" value="{{ form.username.value|default:'' }}" id="username" name="username">
+              </div>
+            <div class="mb-3">
+                <label for="first_name" class="form-label">First name</label>
+                <input type="text" class="form-control" value="{{ form.first_name.value|default:'' }}" id="first_name" name="first_name">
+              </div>
+            <div class="mb-3">
+                <label for="last_name" class="form-label">Last name</label>
+                <input type="text" class="form-control" value="{{ form.last_name.value|default:'' }}" id="last_name" name="last_name">
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password">
+              </div>
+              <div class="mb-3">
+                <label for="password_confirm" class="form-label">Password Confirm</label>
+                <input type="password" class="form-control" id="password_confirm" name="password_confirm">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" value="{{ form.email.value|default:'' }}" name="email">
+            </div>
+            <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+        </form>
+    </div>
+{% endblock %}

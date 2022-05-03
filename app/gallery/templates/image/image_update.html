@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container" style="width: 600px; margin-top: 20px;">
+        <form action="{% url 'image_update' image.pk %}" method="post" enctype="multipart/form-data">
+            {% include 'partial/image/image_form.html' with is_update=True %}
+        </form>
+    </div>
+{% endblock %}

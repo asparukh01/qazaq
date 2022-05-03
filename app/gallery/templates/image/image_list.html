@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for image in images %}
+        <div style="display: flex; justify-content: center">
+            <div class="card" style="width: 80%; margin: 20px 0px;">
+                <div class="card-header"><span style="font-weight: bold">{{ image.author }}</span></div>
+                <a href="{% url 'image_detail' image.pk %}">
+                {% if image.image %}
+                    <img class="card-img-top" style="height: 400px;" src="{{ image.image.url }}">
+                {% endif %}
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title"><span style="font-weight: bold">{{ image.user }}</span>  {{ image.signature }}<br>
+                    {{ image.created_at }}
+                    </h5>
+                <div class="card-footer bg-transparent" style="display: flex; justify-content: flex-start; align-items: center">
+                    <form method="POST" action="{% url 'favorite_add' image.pk %}">
+                        {% csrf_token %}
+                        <button class="btn" type="submit" value="">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                        <path d="M384 48V512l-192-112L0 512V48C0 21.5 21.5 0 48 0h288C362.5 0 384 21.5 384 48z"/>
+                        </svg>
+                        {{ image.favorite }}</button>
+                    </form>
+                </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    {% if is_paginated %}
+            {% include 'partial/common/paginator.html' %}
+    {% endif %}
+{% endblock %}

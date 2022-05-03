@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="mb-3">
+    <label for="username" class="form-label {% if form.username.errors %}is-invalid{% endif %}">
+        Имя пользователя
+    </label>
+    <input type="text" id="username" name="username" value="{{ form.username.value|default:'' }}" class="form-control">
+</div>
+<div class="mb-3">
+    <label for="first_name" class="form-label {% if form.first_name.errors %}is-invalid{% endif %}">
+        Имя
+    </label>
+    <input type="text" id="first_name" name="first_name" value="{{ form.first_name.value|default:'' }}" class="form-control">
+</div>
+<div class="mb-3">
+    <label for="last_name" class="form-label {% if form.last_name.errors %}is-invalid{% endif %}">
+        Фамилия
+    </label>
+    <input type="text" id="last_name" name="last_name" value="{{ form.last_name.value|default:'' }}" class="form-control">
+</div>
+<div class="mb-3">
+    <label for="email" class="form-label {% if form.email.errors %}is-invalid{% endif %}">
+        Email
+    </label>
+    <input type="text" id="email" name="email" value="{{ form.email.value|default:'' }}" class="form-control">
+</div>
+</div>

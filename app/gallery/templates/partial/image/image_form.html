@@ -1,0 +1,13 @@
+{% csrf_token %}
+            <div class="mb-3">
+                <label for="image" class="form-label">Фотография:</label>
+                {% if is_update %}
+                    <p>На данный момент: <a href="{{ form.image.value.url }}">{{ form.image.value.url}}</a></p>
+                {% endif %}
+                <input class="form-control" type="file" name="image" id="image" value="{{ form.image.value.url|default:''  }}">
+            </div>
+            <div class="mb-3">
+                <label for="signature" class="form-label">Подпись:</label>
+                <input type="text" name="signature" class="form-control" id="signature"value="{{ form.signature.value|default:'' }}">
+            </div>
+<input class="form-control" type="submit" value="{% if is_update %} Редактировать {% else %} Опубликовать {% endif %}">

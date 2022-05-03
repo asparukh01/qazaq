@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container" style="width: 600px; margin-top: 20px;">
+    {% if request.user.is_authenticated %}
+        <form action="{% url 'image_create' %}" method="post" enctype="multipart/form-data">
+            {% include 'partial/image/image_form.html' %}
+        </form>
+    {% endif %}
+    </div>
+{% endblock %}

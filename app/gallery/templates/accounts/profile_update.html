@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+    <h1>Редактирование профиля</h1>
+    <form action="{% url 'profile_update' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% include 'accounts/user_form.html' %}
+        {% include 'accounts/profile_form.html' %}
+        <input type="submit" value="Изменить" class="btn btn-success">
+    </form>
+    </div>
+
+{% endblock %}

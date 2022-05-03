@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>Личная страница пользователя {{ user_obj.get_full_name|default:user_obj.username }}</h1>
+        <div style="display: flex;">
+            {% if user_obj.profile.image %}
+                <img style="width: 40%" src="{{ user_obj.profile.image.url }}" alt="">
+            {% endif %}
+            <div style="margin: 20px 0 0 50px;">
+                <p style="font-weight: bold">Имя пользователя: {{ user_obj.username }}</p>
+                <p style="font-weight: bold">Имя: {{ user_obj.first_name }}</p>
+                <p style="font-weight: bold">Фамилия: {{ user_obj.last_name }}</p>
+                <p style="font-weight: bold">Email: {{ user_obj.email }}</p>
+                <p style="font-weight: bold">О себе: {{ user_obj.profile.about }}</p>
+                <div>
+                    {% if user_obj.pk == request.user.pk %}
+                        <a class="btn btn-primary" href="{% url 'profile_update' %}">Редактировать</a>
+                        <a class="btn btn-info" href="{% url 'change_password' %}">Сменить пароль</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

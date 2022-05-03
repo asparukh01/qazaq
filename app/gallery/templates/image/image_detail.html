@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        <div class="container">
+                <div>
+                    <h4>{{ image.author }}</h4>
+                    <p>Фотография: <img style="width: 100%" src="{{ image.image.url }}"></p>
+                    <p>Подпись: {{ image.signature }}</p>
+                    <p>Дата создания: {{ image.created_at }}</p>
+                    <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-danger"
+                                href="{% url 'image_delete' image.pk %}">Удалить</button>
+                    {% include 'partial/common/image_delete.html' with deleted_object=image %}
+                    <a href="{% url 'image_update' image.pk %}">Редактировать</a>
+                </div>
+        </div>
+{% endblock %}
