@@ -1,8 +1,9 @@
-name: Testing
+name: Lint
 
 on:
-  pull_request:
-    branches: [ master ]
+  push:
+    paths:
+      - '*.py'
 
 jobs:
   flake8_py3:
@@ -11,7 +12,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v1
         with:
-          python-version: 3.8
+          python-version: 3.7.4
           architecture: x64
       - name: Checkout PyTorch
         uses: actions/checkout@master
