@@ -1,44 +1,25 @@
-name: reviewdog
+name: Testing
+
 on:
   pull_request:
-    branches:
-        - master
-jobs:
-  shellcheck:
-    name: runner / shellcheck
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: haya14busa/action-cond@v1
-        id: reporter
-        with:
-          cond: ${{ github.event_name == 'pull_request' }}
-          if_true: "github-pr-review"
-          if_false: "github-check"
-      - uses: reviewdog/action-shellcheck@v1
-        with:
-          github_token: ${{ secrets.github_token }}
-          reporter: ${{ steps.reporter.outputs.value }}
-          level: warning
-  misspell:
-    name: runner / misspell
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: reviewdog/action-misspell@v1
-        with:
-          github_token: ${{ secrets.github_token }}
-          reporter: github-check
-          level: warning
-          locale: "US"
+    branches: [ develop ]
 
-  alex:
-    name: runner / alex
+jobs:
+  flake8_py3:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: reviewdog/action-alex@v1
+      - name: Setup Python
+        uses: actions/setup-python@v1
         with:
-          github_token: ${{ secrets.github_token }}
-          reporter: github-check
+          python-version: 3.8
+          architecture: x64
+
+      - name: Checkout PyTorch
+        uses: actions/checkout@master
+      - name: Install flake8
+        run: pip install flake8
+      - name: Run flake8
+        uses: suo/flake8-github-action@releases/v1
+        with:
+          checkName: 'flake8_py3'
           level: warning
