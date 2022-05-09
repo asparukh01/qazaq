@@ -1,9 +1,8 @@
 name: reviewdog
 on:
-  push:
-    branches:
-      - master
   pull_request:
+    branches:
+        - master
 jobs:
   shellcheck:
     name: runner / shellcheck
