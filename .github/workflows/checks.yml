@@ -1,29 +1,23 @@
-name: Lint
+name: reviewdog
 on:
+  push:
+    branches:
+      - master
   pull_request:
-    branches: [ master ]
-
 jobs:
-  lint:
-    name: Lint with Black and flake8
+  shellcheck:
+    name: runner / shellcheck
     runs-on: ubuntu-latest
     steps:
-      - name: Setup Python
-        uses: actions/setup-python@v1
-      - name: Setup checkout
-        uses: actions/checkout@master
-      - name: Install flake8
-        run: pip install flake8
-      - uses: grantmcconnaughey/lintly-flake8-github-action@v1.0
+      - uses: actions/checkout@v2
+      - uses: haya14busa/action-cond@v1
+        id: reporter
         with:
-          # The GitHub API token to create reviews with
-          token: ${{ secrets.GITHUBTOKEN }}
-          # Fail if "new" violations detected or "any", default "new"
-          failIf: new
-          # Additional arguments to pass to flake8, default "." (current directory)
-          args: "--ignore=E121,E123 ."
-
-      - name: Lint with Black
-        run: |
-          pip install black
-          black -v --check .
+          cond: ${{ github.event_name == 'pull_request' }}
+          if_true: "github-pr-review"
+          if_false: "github-check"
+      - uses: reviewdog/action-shellcheck@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: ${{ steps.reporter.outputs.value }}
+          level: warning
