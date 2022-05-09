@@ -5,13 +5,6 @@ on:
     branches: [ master ]
 
 jobs:
-  flake8_py3:
-    runs-on: ubuntu-latest          
-name: Lint
-
-on: [pull_request]
-
-jobs:
   flake8-lint:
     runs-on: ubuntu-latest
     name: Lint
